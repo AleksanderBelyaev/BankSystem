@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+plugins {
+    id 'org.springframework.boot' version '1.4.5.RELEASE'
+}
+
+group 'com.tinkoff'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.thymeleaf:thymeleaf-spring4")
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-test")
+    compile("org.postgresql:postgresql")
+    compile("org.javassist:javassist")
+    compile("javax.xml.bind:jaxb-api")
+    compile("com.sun.xml.bind:jaxb-core")
+    compile("com.sun.xml.bind:jaxb-impl")
+    compile("javax.activation:activation")
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.8'
+}
+
+
