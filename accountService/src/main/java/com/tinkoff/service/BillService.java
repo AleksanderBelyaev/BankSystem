@@ -2,7 +2,7 @@ package com.tinkoff.service;
 
 import com.tinkoff.dao.BillRepository;
 import com.tinkoff.entity.Bill;
-import com.tinkoff.exceptions.CantFindBillException;
+import com.tinkoff.exceptions.NotFoundBillException;
 import com.tinkoff.exceptions.NotEnoughMoneyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,12 +31,12 @@ public class BillService {
         return bill;
     }
 
-    public Bill getBill(Long id) throws CantFindBillException {
+    public Bill getBill(Long id) throws NotFoundBillException {
 
         Bill bill = billRepository.findById(id).orElse(null);
         if (bill == null) {
-            throw new CantFindBillException("Can't find bill with ID: " + id);
-        } else return bill;
+            throw new NotFoundBillException("Can't find bill with ID: " + id);
+        } else {return bill;}
     }
 
     public void deleteBill(Long id) {
@@ -71,7 +71,7 @@ public class BillService {
 
     @Transactional(rollbackFor = Exception.class)
     public void commitTransfer(Long decreasedBillID, Long increasedBillID,
-                               BigDecimal decreasedSum, BigDecimal increasedSum) throws CantFindBillException {
+                               BigDecimal decreasedSum, BigDecimal increasedSum) throws NotFoundBillException {
         Bill decreasedBill = getBill(decreasedBillID);
         Bill increasedBill = getBill(increasedBillID);
         decreasedBill.setSum(decreasedSum);

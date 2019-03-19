@@ -14,7 +14,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BillControllerTest {
 
-    private static final String RESPONSE_TEMPLATE = "{\"id\": 1,\"customerID\": 1,\"sum\": 1000.00\"}";
+    private static final String RESPONSE_TEMPLATE = "{\"id\":1,\"customerID\":1,\"sum\":2622.00}";
 
     @LocalServerPort
     private int port;

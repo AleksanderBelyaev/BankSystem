@@ -2,7 +2,7 @@ package com.tinkoff.controller;
 
 import com.tinkoff.controller.dto.CustomerDTO;
 import com.tinkoff.entity.Customer;
-import com.tinkoff.exceptions.CantFindCustomerException;
+import com.tinkoff.exceptions.NotFoundCustomerException;
 import com.tinkoff.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,11 +37,11 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customer/{id}", method = RequestMethod.GET)
-    public Customer getById(@PathVariable Long id) throws CantFindCustomerException {
+    public Customer getById(@PathVariable Long id) throws NotFoundCustomerException {
         return customerService.getCustomer(id);
     }
 
-    @RequestMapping(value = "/customer/all")
+    @RequestMapping(value = "/customer/all", method = RequestMethod.GET)
     public List<Customer> getAll() {
         return customerService.getAllCustomers();
     }

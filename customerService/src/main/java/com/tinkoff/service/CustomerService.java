@@ -2,7 +2,7 @@ package com.tinkoff.service;
 
 import com.tinkoff.dao.CustomerRepository;
 import com.tinkoff.entity.Customer;
-import com.tinkoff.exceptions.CantFindCustomerException;
+import com.tinkoff.exceptions.NotFoundCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +40,11 @@ public class CustomerService {
         return account;
     }
 
-    public Customer getCustomer(Long id) throws CantFindCustomerException {
+    public Customer getCustomer(Long id) throws NotFoundCustomerException {
 
         Customer customer = customerRepository.findById(id).orElse(null);
         if (customer == null) {
-            throw new CantFindCustomerException("Can't find customer with ID: " + id);
+            throw new NotFoundCustomerException("Can't find customer with ID: " + id);
         } else return customer;
     }
 

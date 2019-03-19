@@ -1,11 +1,8 @@
 package com.tinkoff.controller;
 
-import com.tinkoff.controller.dto.AdjustmentDTO;
-import com.tinkoff.controller.dto.BillDTO;
-import com.tinkoff.controller.dto.BillTransferDTO;
-import com.tinkoff.controller.dto.PaymentDTO;
+import com.tinkoff.controller.dto.*;
 import com.tinkoff.entity.Bill;
-import com.tinkoff.exceptions.CantFindBillException;
+import com.tinkoff.exceptions.NotFoundBillException;
 import com.tinkoff.exceptions.NotEnoughMoneyException;
 import com.tinkoff.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/bill/{id}", method = RequestMethod.GET)
-    public Bill getBillById(@PathVariable Long id) throws CantFindBillException {
+    public Bill getBillById(@PathVariable Long id) throws NotFoundBillException {
         return billService.getBill(id);
     }
 
@@ -49,7 +46,7 @@ public class BillController {
         return billService.commitAdjustment(id, adjustment.getAdjustment());
     }
 
-    @RequestMapping(value = "/bill/payment/{id}", method = RequestMethod.PUT) //описа
+    @RequestMapping(value = "/bill/payment/{id}", method = RequestMethod.PUT)
     public Bill createPayment(@PathVariable Long id,
                               @RequestBody PaymentDTO payment) throws NotEnoughMoneyException {
         return billService.commitPayment(id, payment.getPayment());
@@ -60,7 +57,6 @@ public class BillController {
 
         List<Bill> billList = billService.getByCustomerID(customerID);
         ArrayList<BillDTO> billDTOList = new ArrayList<>();
-
         for (int i = 0; i < billList.size(); i++) {
             BillDTO billDTO = new BillDTO(billList.get(i).getId(), billList.get(i).getSum(), billList.get(i).getCustomerID());
             billDTOList.add(billDTO);
@@ -69,7 +65,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/bill/transfer", method = RequestMethod.POST)
-    public void commitTransfer(@RequestBody BillTransferDTO billTransferDTO) throws CantFindBillException {
+    public void commitTransfer(@RequestBody BillTransferDTO billTransferDTO) throws NotFoundBillException {
 
         BillDTO decreasedBill = billTransferDTO.getDecreasedBill();
         BillDTO increasedBill = billTransferDTO.getIncreasedBill();

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.tinkoff.controller.dto.BillDTO;
 import com.tinkoff.controller.dto.BillTransferDTO;
 import com.tinkoff.controller.dto.CustomerDTO;
-import com.tinkoff.exceptions.CantFindBillException;
+import com.tinkoff.exceptions.NotFoundBillException;
 import com.tinkoff.exceptions.NotEnoughMoneyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -49,7 +49,7 @@ public class CommonService {
         return customer;
     }
 
-    public void commitTransferForOneCustomer(Long customerID, Long decreasedBillID, Long increasedBillID, BigDecimal transfer) throws CantFindBillException, NotEnoughMoneyException {
+    public void commitTransferForOneCustomer(Long customerID, Long decreasedBillID, Long increasedBillID, BigDecimal transfer) throws NotFoundBillException, NotEnoughMoneyException {
         try {
             List<BillDTO> list = getListOfBillsByCustomerID(customerID);
             BillDTO decreasedBill = getRequiredBill(decreasedBillID, list);
@@ -62,7 +62,7 @@ public class CommonService {
         }
     }
 
-    public void commitTransferForTwoCustomers(Long firstCustomerID, Long decreasedBillID, Long secondCustomerID, Long increasedBillID, BigDecimal transfer) throws CantFindBillException, NotEnoughMoneyException {
+    public void commitTransferForTwoCustomers(Long firstCustomerID, Long decreasedBillID, Long secondCustomerID, Long increasedBillID, BigDecimal transfer) throws NotFoundBillException, NotEnoughMoneyException {
         try {
             List<BillDTO> firstCustomerBillsList = getListOfBillsByCustomerID(firstCustomerID);
             BillDTO decreasedBill = getRequiredBill(decreasedBillID, firstCustomerBillsList);
@@ -86,12 +86,12 @@ public class CommonService {
         return requiredBill;
     }
 
-    private void checkBillForAbsence(BillDTO decreasedBill, BillDTO increasedBill, Long decreasedBillID, Long increasedBillID) throws CantFindBillException {
+    private void checkBillForAbsence(BillDTO decreasedBill, BillDTO increasedBill, Long decreasedBillID, Long increasedBillID) throws NotFoundBillException {
         if (decreasedBill == null) {
-            throw new CantFindBillException("Can't find bill for cash decreasing with ID: " + decreasedBillID);
+            throw new NotFoundBillException("Can't find bill for cash decreasing with ID: " + decreasedBillID);
         }
         if (increasedBill == null) {
-            throw new CantFindBillException("Can't find bill for cash increasing with ID: " + increasedBillID);
+            throw new NotFoundBillException("Can't find bill for cash increasing with ID: " + increasedBillID);
         }
     }
 
