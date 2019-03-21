@@ -12,8 +12,8 @@ Java RESTful API for money transfers between users accounts
 To launch classes Application.java in servecies customerService, accountService and commonService
 ```
 
-Servicies commonService, accountService, customerService and  start on localhost ports 8080, 8081 and 8082 respectively. 
-Postgre database initialized with some sample user and account data.
+Services commonService, accountService and customerService   start on localhost ports 8080, 8081 and 8082 respectively. 
+Postgre database initialized with some sample user.
 
 
 ### Available Services
