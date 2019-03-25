@@ -1,37 +1,22 @@
 package com.tinkoff.controller.dto;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 public class BillDTO {
 
+    @NotNull(message = "Should be initialized")
     private Long id;
 
+    @Min(value = 0, message = "Should be more than zero")
     private BigDecimal sum;
 
+    @NotNull(message = "Should be initialized")
     private Long customerID;
-
-    public Long getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
-    }
-
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
-    }
 
 }

@@ -1,8 +1,13 @@
 package com.tinkoff.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "Bill")
 public class Bill {
@@ -15,23 +20,4 @@ public class Bill {
 
     private BigDecimal sum;
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public BigDecimal getSum() {
-        return sum;
-    }
-
-    public void setSum(BigDecimal sum) {
-        this.sum = sum;
-    }
 }

@@ -1,46 +1,22 @@
 package com.tinkoff.controller.dto;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Getter
+@Setter
 public class CustomerDTO {
 
+    @NotNull(message = "Should be initialized")
     private Long id;
 
+    @NotNull(message = "Should be initialized")
     private String name;
 
+    @NotNull(message = "Should be initialized")
     private String surname;
 
     private List<BillDTO> billList;
-
-    public List<BillDTO> getBillList() {
-        return billList;
-    }
-
-    public void setBillList(List<BillDTO> billList) {
-        this.billList = billList;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 }

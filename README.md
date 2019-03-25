@@ -1,6 +1,6 @@
-# BankSystem
+﻿# BankSystem
 
-Java RESTful API for money transfers between users accounts
+Java RESTful API for money transfers between customers accounts
 
 ### Technologies
 - Spring Boot

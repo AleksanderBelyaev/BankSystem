@@ -6,8 +6,10 @@ import com.tinkoff.exceptions.NotFoundBillException;
 import com.tinkoff.exceptions.NotEnoughMoneyException;
 import com.tinkoff.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,8 @@ public class BillController {
     }
 
     @RequestMapping(value = "/bill/create/{customerID}", method = RequestMethod.POST)
-    public Bill createBill(@PathVariable Long customerID,
-                           @RequestBody BillDTO bill) {
+    public Bill createBill(@PathVariable @NotNull(message = "Should initialized") Long customerID,
+                           @RequestBody @Valid BillDTO bill) {
         return billService.createBill(customerID, bill.getSum());
     }
 
@@ -39,16 +41,18 @@ public class BillController {
         billService.deleteBill(id);
     }
 
+
     @RequestMapping(value = "bill/adjustment/{id}", method = RequestMethod.PUT)
-    public Bill createAdjustment(@PathVariable Long id,
-                                 @RequestBody AdjustmentDTO adjustment) {
+    public Bill createAdjustment(@PathVariable @NotNull(message = "Should be initialized") Long id,
+                                 @RequestBody @Valid AdjustmentDTO adjustment) {
 
         return billService.commitAdjustment(id, adjustment.getAdjustment());
     }
 
+    @NotNull
     @RequestMapping(value = "/bill/payment/{id}", method = RequestMethod.PUT)
-    public Bill createPayment(@PathVariable Long id,
-                              @RequestBody PaymentDTO payment) throws NotEnoughMoneyException {
+    public Bill createPayment(@PathVariable @NotNull(message = "Should be initialized") Long id,
+                              @RequestBody @Valid PaymentDTO payment) throws NotEnoughMoneyException {
         return billService.commitPayment(id, payment.getPayment());
     }
 
